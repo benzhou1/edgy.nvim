@@ -103,6 +103,10 @@ function M:on_hide(win)
     end
   end
 
+  if require("edgy.config").on_edgebar_hide then
+    require("edgy.config").on_edgebar_hide(win.view.edgebar)
+  end
+
   if visible > 0 then
     return
   end
@@ -167,12 +171,18 @@ end
 
 ---@param opts? {check: boolean}
 function M:_update(opts)
+  local before_wins = #self.wins
   self.wins = {}
   for _, view in ipairs(self.views) do
     view:layout(opts)
     for _, win in ipairs(view.wins) do
       table.insert(self.wins, win)
       win.idx = #self.wins
+    end
+  end
+  if #self.wins > 0 and before_wins == 0 then
+    if require("edgy.config").on_edgebar_show then
+      require("edgy.config").on_edgebar_show(self)
     end
   end
 end

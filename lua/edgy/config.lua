@@ -41,6 +41,10 @@ local defaults = {
   -- close edgy when all windows are hidden instead of opening one of them
   -- disable to always keep at least one edgy split visible in each open section
   close_when_all_hidden = true,
+  -- Callback when an edgebar is hidden
+  on_edgebar_hide = nil,
+  -- Callback when an edgebar is shown
+  on_edgebar_show = nil,
   -- global window options for edgebar windows
   ---@type vim.wo
   wo = {
